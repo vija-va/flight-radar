@@ -4,22 +4,21 @@ import type { SocketStatus } from '@/types.ts';
 interface ConnectionState {
     status: SocketStatus;
     attempt: number;
-    reason?: string;
+    reason: string | null;
 }
 
 const initialState: ConnectionState = {
     status: 'connecting',
     attempt: 0,
+    reason: null,
 };
 
 const connectionSlice = createSlice({
     name: 'connection',
     initialState,
     reducers: {
-        setStatus(state, action: PayloadAction<ConnectionState>) {
-            state.status = action.payload.status;
-            state.attempt = action.payload.attempt;
-            state.reason = action.payload.reason;
+        setStatus(_, action: PayloadAction<ConnectionState>) {
+            return action.payload;
         },
     },
 });

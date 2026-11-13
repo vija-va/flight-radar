@@ -20,28 +20,21 @@ const selectionSlice = createSlice({
     initialState,
     reducers: {
         planeSelected(state, action: PayloadAction<string>) {
-            state.selectedId = action.payload;
-            state.details = null;
-            state.detailsStatus = 'loading';
-            state.reason = null;
+            if (state.selectedId === action.payload) {
+                return initialState;
+            }
+            return { ...initialState, selectedId: action.payload, detailsStatus: 'loading' };
         },
-        selectionCleared(state) {
-            state.selectedId = null;
-            state.details = null;
-            state.detailsStatus = 'idle';
-            state.reason = null;
+        selectionCleared() {
+            return initialState;
         },
         detailsReceived(state, action: PayloadAction<PlaneDetailed>) {
             if (action.payload.id === state.selectedId) {
-                state.details = action.payload;
-                state.detailsStatus = 'live';
-                state.reason = null;
+                return { ...state, reason: null, details: action.payload, detailsStatus: 'live' };
             }
         },
         detailsFailed(state, action: PayloadAction<string>) {
-            state.details = null;
-            state.detailsStatus = 'error';
-            state.reason = action.payload;
+            return { ...state, reason: action.payload, detailsStatus: 'error' };
         },
     },
 });
