@@ -18,3 +18,8 @@
         --text: #9ca3af;
     }
 }
+
+body {
+    margin: 0;
+    padding: 0;
+}
