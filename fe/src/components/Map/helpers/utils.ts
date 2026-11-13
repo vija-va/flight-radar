@@ -1,9 +1,8 @@
 import type { FeatureCollection, Feature, Point } from 'geojson';
-import type { PlaneBasic } from '../../../types.ts';
+import type { PlaneBasic } from '@/types.ts';
 import type { MapLibreMap } from 'maplibre-gl';
-import planeImg from '../../../assets/plane.svg';
+import planeImg from '@/assets/plane.svg';
 import { IMAGE_ID, MAP_LAYER, PLANES_SOURCE_ID } from './constants.ts';
-import { MOCK_PLANES } from './mockData.ts';
 
 type PlaneFeatureProps = {
     color: string;
@@ -39,8 +38,8 @@ export const addPlanesLayer = async (map: MapLibreMap): Promise<void> => {
 
     map.addSource(PLANES_SOURCE_ID, {
         type: 'geojson',
-        data: toFeatureCollection(MOCK_PLANES),
         promoteId: 'id',
+        data: toFeatureCollection([]),
     });
 
     map.addLayer(MAP_LAYER);

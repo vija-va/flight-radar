@@ -9,6 +9,7 @@ fe/dist/
 
 # Environment variables
 be/.env
+fe/.env
 
 # IDE
 .vscode/

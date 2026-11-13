@@ -1,4 +1,13 @@
-import type { Airport, FlightStatus, PlaneBasic, PlaneDetailed } from './types.ts';
+import type {
+    Airport,
+    BasicPlanesMessage,
+    ErrorMessage,
+    FlightStatus,
+    PlaneBasic,
+    PlaneDetailed,
+    PlaneDetailsMessage,
+    ServerMessage,
+} from './types.ts';
 
 type Callback = (value: unknown) => boolean;
 
@@ -73,4 +82,29 @@ export const isPlaneDetailed = (obj: unknown): obj is PlaneDetailed => {
         status: (value) => typeof value === 'string' && Object.hasOwn(FLIGHT_STATUS_SET, value),
         color: 'string',
     });
+};
+
+const isBasicPlanesMessage = (msg: unknown): msg is BasicPlanesMessage => {
+    return typeGuard<BasicPlanesMessage>(msg, {
+        type: (value) => value === 'planes',
+        data: (value) => Array.isArray(value) && value.every(isPlaneBasic),
+    });
+};
+
+const isPlaneDetailsMessage = (msg: unknown): msg is PlaneDetailsMessage => {
+    return typeGuard<PlaneDetailsMessage>(msg, {
+        type: (value) => value === 'plane-details',
+        data: (value) => isPlaneDetailed(value),
+    });
+};
+
+const isErrorMessage = (msg: unknown): msg is ErrorMessage => {
+    return typeGuard<ErrorMessage>(msg, {
+        type: (value) => value === 'error',
+        message: 'string',
+    });
+};
+
+export const isServerMessage = (msg: unknown): msg is ServerMessage => {
+    return isBasicPlanesMessage(msg) || isPlaneDetailsMessage(msg) || isErrorMessage(msg);
 };

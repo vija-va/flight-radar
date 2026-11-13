@@ -1,4 +1,6 @@
 export type FlightStatus = 'departed' | 'enroute' | 'cruising' | 'landing';
+export type DetailsStatus = 'idle' | 'loading' | 'live' | 'error';
+export type SocketStatus = 'connecting' | 'open' | 'reconnecting' | 'closed';
 
 export type Airport = {
     airport: string;
@@ -46,3 +48,22 @@ export type PlaneDetailed = {
     // UI
     color: string;
 };
+
+export type BasicPlanesMessage = {
+    type: 'planes';
+    data: PlaneBasic[];
+};
+
+export type PlaneDetailsMessage = {
+    type: 'plane-details';
+    data: PlaneDetailed;
+};
+
+export type SubscribeMessage = {
+    type: 'subscribe';
+    planeId: string;
+};
+
+export type ErrorMessage = { type: 'error'; message: string };
+
+export type ServerMessage = BasicPlanesMessage | PlaneDetailsMessage | ErrorMessage;
