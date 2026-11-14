@@ -1,0 +1,32 @@
+:root {
+    --sans: 'Inter', system-ui, sans-serif;
+
+    font: 18px/145% var(--sans);
+    color: var(--txt-primary);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    border: none;
+}
+
+.glass {
+    background: var(--glass);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-edge);
+    box-shadow: 0 12px 32px var(--glass-shadow);
+}

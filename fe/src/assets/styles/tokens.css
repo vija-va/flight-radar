@@ -1,0 +1,26 @@
+:root {
+    /* Text */
+    --txt-primary: #f5f5f7;
+    --txt-secondary: #d2d2d7;
+    --txt-label: #98989d;
+    --txt-attribute: #6e6e73;
+
+    /* Status */
+    --success: #30d158;
+    --warning: #ff9f0a;
+    --warning-bg: #ff9f0a29;
+    --error: #ff453a;
+
+    /* Accent */
+    --accent-primary: #0a84ff;
+    --accent-focus: #2997ff;
+    --selected-ring-fill: #ffffff14;
+
+    /* Panels */
+    --glass: #1e1e209e;
+    --glass-edge: #ffffff1a;
+    --glass-shadow: #00000059;
+    --tile: #ffffff0f;
+    --skeleton: #424245;
+    --blur: blur(28px) saturate(150%);
+}
