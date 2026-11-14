@@ -87,7 +87,7 @@ export const isPlaneDetailed = (obj: unknown): obj is PlaneDetailed => {
 const isBasicPlanesMessage = (msg: unknown): msg is BasicPlanesMessage => {
     return typeGuard<BasicPlanesMessage>(msg, {
         type: (value) => value === 'planes',
-        data: (value) => Array.isArray(value) && value.every(isPlaneBasic),
+        data: (value) => Array.isArray(value),
     });
 };
 

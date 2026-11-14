@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks/useStore.ts';
 import { planesSelectors } from '@/store/slices/planes.ts';
 import { planeSelected, selectionCleared } from '@/store/slices/selection.ts';
 
-export const useMap = (containerRef: RefObject<HTMLDivElement | null>): MapLibreMap | null => {
+export const useMap = (containerRef: RefObject<HTMLDivElement | null>): void => {
     const [mapInstance, setMapInstance] = useState<MapLibreMap | null>(null);
     const planes = useAppSelector(planesSelectors.selectAll);
     const selectedId = useAppSelector((state) => state.selection.selectedId);
@@ -72,7 +72,10 @@ export const useMap = (containerRef: RefObject<HTMLDivElement | null>): MapLibre
         const expression: ExpressionSpecification = ['==', ['get', 'id'], selectedId];
         mapInstance.setPaintProperty(PLANES_LAYER_ID, 'icon-halo-color', ['case', expression, '#fff', 'rgba(0,0,0,0)']);
         mapInstance.setPaintProperty(PLANES_LAYER_ID, 'icon-halo-width', ['case', expression, 2, 0]);
+        mapInstance.setPaintProperty(
+            PLANES_LAYER_ID,
+            'icon-opacity',
+            selectedId === null ? 1 : ['case', expression, 1, 0.45],
+        );
     }, [mapInstance, selectedId]);
-
-    return mapInstance;
 };

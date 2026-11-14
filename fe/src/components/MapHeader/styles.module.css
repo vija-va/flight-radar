@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 1;
+
+    border-radius: 9px;
+}
+
+.headerItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    position: relative;
+}
+
+.headerItem:not(:last-child):after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1px;
+    height: 18px;
+    background: var(--glass-edge);
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.planesCounter {
+    font-size: 14px;
+    color: var(--txt-secondary);
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+    .header {
+        width: calc(100% - 32px);
+    }
+
+    .headerItem:last-child {
+        margin-left: auto;
+    }
+}

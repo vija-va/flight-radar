@@ -1,0 +1,29 @@
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+}
+
+.dot.open {
+    background: var(--success);
+    border-color: var(--success);
+    animation: blink 1s ease-in-out infinite;
+}
+
+.dot.connecting,
+.dot.reconnecting {
+    background: var(--warning);
+    border-color: var(--warning);
+    animation: blink 1s ease-in-out infinite;
+}
+
+.dot.closed {
+    border-color: var(--error);
+}
+
+@keyframes blink {
+    100% {
+        background: transparent;
+    }
+}

@@ -1,0 +1,23 @@
+.closeBtn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--txt-secondary);
+    background: var(--selected-ring-fill);
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--txt-primary);
+}
+
+@media screen and (max-width: 767px) {
+    .title {
+        font-size: 24px;
+    }
+}

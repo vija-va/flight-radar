@@ -1,0 +1,38 @@
+.passengers {
+    margin-top: 8px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: var(--tile);
+}
+
+.value {
+    height: 30px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--txt-primary);
+}
+
+.value span {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--txt-attribute);
+}
+
+.bar {
+    margin-top: 10px;
+    height: 4px;
+    border-radius: 16px;
+    background: var(--selected-ring-fill);
+    overflow: hidden;
+}
+
+.barFill {
+    height: 100%;
+    width: calc(var(--load) * 100%);
+    border-radius: inherit;
+    background: var(--txt-primary);
+    transition: width 0.3s ease-out;
+}

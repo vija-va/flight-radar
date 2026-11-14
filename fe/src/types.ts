@@ -1,6 +1,7 @@
 export type FlightStatus = 'departed' | 'enroute' | 'cruising' | 'landing';
 export type DetailsStatus = 'idle' | 'loading' | 'live' | 'error';
 export type SocketStatus = 'connecting' | 'open' | 'reconnecting' | 'closed';
+export type VerticalDirection = 'up' | 'down' | 'level';
 
 export type Airport = {
     airport: string;
@@ -14,6 +15,8 @@ export type PlaneBasic = {
     altitude: number;
     color: string;
 };
+
+export type PlanesOnMap = PlaneBasic & { bearing: number };
 
 export type PlaneDetailed = {
     id: string;

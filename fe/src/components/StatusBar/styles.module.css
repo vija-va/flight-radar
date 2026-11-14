@@ -1,0 +1,22 @@
+.statusBar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.label.open {
+    color: var(--txt-primary);
+}
+
+.label.connecting,
+.label.reconnecting {
+    color: var(--warning);
+}
+
+.label.closed {
+    color: var(--error);
+}

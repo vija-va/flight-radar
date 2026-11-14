@@ -1,0 +1,81 @@
+.desc {
+    margin-top: 4px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--txt-attribute);
+}
+
+.airline {
+    color: var(--txt-secondary);
+}
+
+.planeIcon {
+    display: flex;
+    transform: rotate(90deg);
+}
+
+.flightInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--tile);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 8px;
+}
+
+.flightInfoItem {
+    flex-shrink: 0;
+}
+
+.flightInfoItem.right {
+    text-align: right;
+}
+
+.flightAirport {
+    height: 26px;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--txt-primary);
+}
+
+.flightCity {
+    height: 26px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--txt-attribute);
+}
+
+.flightLineWrapper {
+    flex: 1;
+    padding: 0 9px;
+}
+
+.flightLine {
+    position: relative;
+    height: 3px;
+    width: 100%;
+    border-radius: 16px;
+    background: var(--selected-ring-fill);
+}
+
+.flightLineFill {
+    height: 100%;
+    width: calc(var(--progress) * 100%);
+    border-radius: inherit;
+    background: var(--plane-color, var(--txt-primary));
+    transition: width 1s linear;
+}
+
+.flightLinePlane {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--progress) * 100%);
+    display: flex;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: left 1s linear;
+    color: var(--plane-color);
+}

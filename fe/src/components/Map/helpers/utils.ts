@@ -1,7 +1,7 @@
 import type { FeatureCollection, Feature, Point } from 'geojson';
-import type { PlaneBasic } from '@/types.ts';
+import type { PlanesOnMap } from '@/types.ts';
 import type { MapLibreMap } from 'maplibre-gl';
-import planeImg from '@/assets/plane.svg';
+import planeImg from '@/assets/images/plane.svg';
 import { IMAGE_ID, MAP_LAYER, PLANES_SOURCE_ID } from './constants.ts';
 
 type PlaneFeatureProps = {
@@ -9,14 +9,14 @@ type PlaneFeatureProps = {
     id: string;
 };
 
-export const toFeatureCollection = (planes: PlaneBasic[]): FeatureCollection<Point, PlaneFeatureProps> => {
+export const toFeatureCollection = (planes: PlanesOnMap[]): FeatureCollection<Point, PlaneFeatureProps> => {
     const features: Feature<Point, PlaneFeatureProps>[] = planes.map((plane) => ({
         type: 'Feature',
         geometry: {
             type: 'Point',
             coordinates: [plane.longitude, plane.latitude],
         },
-        properties: { color: plane.color, id: plane.id },
+        properties: { color: plane.color, id: plane.id, bearing: plane.bearing },
     }));
 
     return {

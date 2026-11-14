@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { DetailsStatus, PlaneDetailed } from '@/types.ts';
+import type { DetailsStatus, PlaneDetailed, SocketStatus } from '@/types.ts';
 
 interface SelectionState {
     selectedId: PlaneDetailed['id'] | null;
@@ -36,9 +36,22 @@ const selectionSlice = createSlice({
         detailsFailed(state, action: PayloadAction<string>) {
             return { ...state, reason: action.payload, detailsStatus: 'error' };
         },
+        detailsSocketChanged(state, action: PayloadAction<{ status: SocketStatus; reason?: string }>) {
+            if (state.selectedId === null || state.detailsStatus === 'error') return;
+
+            const { status, reason } = action.payload;
+            if (status === 'reconnecting') {
+                state.detailsStatus = 'loading';
+            }
+            if (status === 'closed') {
+                state.detailsStatus = 'error';
+                state.reason = reason || 'Connection lost';
+            }
+        },
     },
 });
 
-export const { planeSelected, selectionCleared, detailsReceived, detailsFailed } = selectionSlice.actions;
+export const { planeSelected, selectionCleared, detailsReceived, detailsFailed, detailsSocketChanged } =
+    selectionSlice.actions;
 
 export default selectionSlice.reducer;

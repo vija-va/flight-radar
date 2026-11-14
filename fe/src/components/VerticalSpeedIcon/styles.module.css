@@ -1,0 +1,18 @@
+.icon {
+    flex-shrink: 0;
+    align-self: center;
+    transition: transform 0.2s ease-out;
+}
+
+.up {
+    color: var(--success);
+}
+
+.down {
+    color: var(--warning);
+    transform: rotate(180deg);
+}
+
+.level {
+    color: var(--txt-attribute);
+}

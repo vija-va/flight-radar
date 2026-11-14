@@ -16,6 +16,8 @@ export const MAP_LAYER: SymbolLayerSpecification = {
     },
     layout: {
         'icon-image': IMAGE_ID,
+        'icon-rotate': ['get', 'bearing'],
+        'icon-rotation-alignment': 'map',
         'icon-allow-overlap': true,
         'icon-ignore-placement': true,
     },

@@ -1,6 +1,6 @@
-import { backoff } from './utils.ts';
-import { HEARTBEAT_RATE, NOT_FOUND_ERROR_CODE } from './constants.ts';
-import type { SocketStatus, SubscribeMessage } from '../types.ts';
+import { backoff } from '@/lib/utils.ts';
+import { IDLE_TIMEOUT_MS, MAX_RECONNECT_ATTEMPTS, SERVER_REJECT_CLOSE_CODE } from '@/lib/constants.ts';
+import type { SocketStatus, SubscribeMessage } from '@/types.ts';
 
 interface SocketOptions {
     url: string;
@@ -26,6 +26,7 @@ export class Socket {
     connect() {
         if (!this.stopped) return;
         this.stopped = false;
+        this.attempt = 0;
         this.options.onStatus('connecting', this.attempt);
         this.open();
     }
@@ -33,6 +34,11 @@ export class Socket {
     disconnect() {
         this.options.onStatus('closed', this.attempt);
         this.close();
+    }
+
+    restart() {
+        this.close();
+        this.connect();
     }
 
     send(msg: SubscribeMessage): void {
@@ -53,7 +59,7 @@ export class Socket {
 
         ws.onclose = (event) => {
             if (ws !== this.ws) return;
-            if (event.code === NOT_FOUND_ERROR_CODE) {
+            if (event.code === SERVER_REJECT_CLOSE_CODE) {
                 this.options.onStatus('closed', this.attempt, event.reason);
                 this.close();
             } else {
@@ -80,6 +86,7 @@ export class Socket {
 
     private handleMessage(msg: unknown) {
         let message: unknown;
+        this.resetHeartbeat();
         try {
             if (typeof msg === 'string') {
                 message = JSON.parse(msg);
@@ -89,8 +96,6 @@ export class Socket {
         }
 
         this.options.onMessage(message);
-
-        this.resetHeartbeat();
     }
 
     private handleClose() {
@@ -103,6 +108,9 @@ export class Socket {
 
     private scheduleReconnect() {
         clearTimeout(this.reconnectTimer);
+        if (this.attempt === MAX_RECONNECT_ATTEMPTS) {
+            return this.disconnect();
+        }
         const delay = backoff(this.attempt);
         this.reconnectTimer = setTimeout(this.open.bind(this), delay);
         this.attempt += 1;
@@ -115,6 +123,6 @@ export class Socket {
         this.heartbeatTimer = setTimeout(() => {
             this.ws?.close();
             this.handleClose();
-        }, HEARTBEAT_RATE);
+        }, IDLE_TIMEOUT_MS);
     }
 }
