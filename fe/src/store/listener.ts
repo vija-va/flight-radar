@@ -28,10 +28,11 @@ startAppListener({
             onMessage: (msg) => {
                 if (isServerMessage(msg)) {
                     switch (msg.type) {
-                        case 'planes':
+                        case 'planes': {
                             const planes = msg.data.filter(isPlaneBasic);
                             api.dispatch(planesReceived(planes));
                             break;
+                        }
                     }
                 }
             },
